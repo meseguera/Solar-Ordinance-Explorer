@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface SearchBarProps {
@@ -24,7 +23,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ location, setLocation, onS
         onChange={(e) => setLocation(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="e.g., 'Travis County, Texas'"
-        className="w-full px-4 py-3 text-lg border border-gray-300 rounded-md shadow-sm focus:ring-sky-blue focus:border-sky-blue dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        className="w-full px-4 py-3 text-lg bg-white border border-gray-300 rounded-md shadow-sm focus:ring-sky-blue focus:border-sky-blue dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
         disabled={isLoading}
       />
       <button

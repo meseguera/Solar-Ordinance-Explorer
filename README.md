@@ -18,6 +18,3 @@ View your app in AI Studio: https://ai.studio/apps/drive/1CtMWmPt_k5o7ZgAu8I7ZC_
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
-
-User Prompt:
-   Use https://github.com/NREL/elm.git to create an app that generates a GUI for the user to explore Ordinances related to Solar Farms.
