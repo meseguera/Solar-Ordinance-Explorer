@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Solar Ordinance Explorer",
+  "description": "An application that allows users to explore local ordinances and regulations related to solar farm development using the Gemini API for research and summarization.",
+  "requestFramePermissions": []
+}
