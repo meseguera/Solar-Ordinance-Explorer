@@ -8,18 +8,28 @@ interface ResultsDisplayProps {
   ordinances: Ordinance[] | null;
   isLoading: boolean;
   error: string | null;
+  infoMessage?: string | null;
 }
 
-export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ ordinances, isLoading, error }) => {
+export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ ordinances, isLoading, error, infoMessage }) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   if (error) {
     return (
-      <div className="text-center p-8 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 rounded-lg">
-        <h3 className="text-xl font-semibold text-red-800 dark:text-red-300">An Error Occurred</h3>
+      <div className="text-center p-8 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 rounded-lg" role="alert">
+        <h3 className="text-xl font-semibold text-red-800 dark:text-red-300">Request Failed</h3>
         <p className="mt-2 text-red-600 dark:text-red-400">{error}</p>
+      </div>
+    );
+  }
+
+  if (infoMessage) {
+    return (
+      <div className="text-center p-8 bg-blue-100 dark:bg-blue-900/30 border border-blue-400 dark:border-blue-600 rounded-lg">
+        <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-300">Search Complete</h3>
+        <p className="mt-2 text-blue-600 dark:text-blue-400">{infoMessage}</p>
       </div>
     );
   }

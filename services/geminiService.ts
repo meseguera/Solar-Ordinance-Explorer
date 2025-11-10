@@ -73,12 +73,24 @@ export const fetchSolarOrdinances = async (location: string): Promise<Ordinance[
     });
     
     const responseText = response.text.trim();
-    const parsedJson: GeminiResponse = JSON.parse(responseText);
+    if (!responseText) {
+      throw new Error("The AI model returned an empty response. This may be due to the query, content filters, or a temporary issue.");
+    }
     
-    return parsedJson.ordinances || [];
+    try {
+        const parsedJson: GeminiResponse = JSON.parse(responseText);
+        return parsedJson.ordinances || [];
+    } catch(jsonError) {
+        console.error("Failed to parse JSON response from Gemini API:", responseText, jsonError);
+        throw new Error("The AI model's response was not in the expected format. Please try rephrasing your search.");
+    }
 
   } catch (error) {
     console.error("Error fetching or parsing data from Gemini API:", error);
-    throw new Error("Failed to retrieve and process solar ordinance information.");
+    if (error instanceof Error) {
+        // Pass the specific error message along
+        throw error;
+    }
+    throw new Error("An unknown error occurred while communicating with the AI model.");
   }
 };

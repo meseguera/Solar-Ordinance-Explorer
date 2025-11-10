@@ -11,6 +11,7 @@ const App: React.FC = () => {
   const [ordinances, setOrdinances] = useState<Ordinance[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
 
   const handleSearch = useCallback(async () => {
     if (!location.trim()) {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
 
     setIsLoading(true);
     setError(null);
+    setInfoMessage(null);
     setOrdinances(null);
 
     try {
@@ -27,11 +29,15 @@ const App: React.FC = () => {
       if (results && results.length > 0) {
         setOrdinances(results);
       } else {
-        setError('No specific ordinances found for this location. The area might have general zoning laws that apply.');
+        setInfoMessage('No specific ordinances found for this location. This could mean the area uses general zoning laws, or specific solar regulations may not be readily available online. Try a broader search (e.g., county or state).');
       }
     } catch (err) {
       console.error(err);
-      setError('Failed to fetch ordinance data. The AI model may be unable to find information for this specific location or an error occurred.');
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -55,6 +61,7 @@ const App: React.FC = () => {
             ordinances={ordinances}
             isLoading={isLoading}
             error={error}
+            infoMessage={infoMessage}
           />
         </div>
       </main>
